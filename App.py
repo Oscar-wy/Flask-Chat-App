@@ -13,6 +13,14 @@ def Main():
     else:
         return redirect("/Auth")
     
+@app.route("/Chat")
+def Chat():
+    return render_template("Chat.html")
+
+@app.route("/Account")
+def Account():
+    return render_template("Account.html")
+    
 @app.route("/Auth")
 def Auth():
     Secretkey = request.cookies.get("SecretKey")
@@ -55,6 +63,13 @@ def AuthSignUp():
 @app.route("/Auth/Return")
 def Return():
     return redirect("/Auth")
+
+@app.route("/Logout", methods=['GET', 'POST'])
+def Logout():
+    resp = make_response(redirect("/"))
+    resp.delete_cookie("SecretKey")
+    return resp
+
 
 if __name__ == "__main__":
     app.run(debug=True)
